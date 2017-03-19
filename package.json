@@ -7,6 +7,9 @@
     "deploy": "claudia create --region  eu-west-2 --use-local-dependencies --api-module bot",
     "update": "claudia update --use-local-dependencies --api-module bot"
   },
+  "files": [
+    "*.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VEJATHER/MDNBot-redirect-lambda-function.git"
@@ -18,7 +21,9 @@
   },
   "homepage": "https://github.com/VEJATHER/MDNBot-redirect-lambda-function#readme",
   "dependencies": {
-    "claudia-api-builder": "^2.4.1"
+    "claudia-api-builder": "^2.4.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
   },
   "optionalDependencies": {
     "aws-sdk": "^2.28.0"
