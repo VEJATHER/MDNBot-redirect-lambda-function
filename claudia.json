@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "mdnbot-redirect-lambda-function-executor",
+    "name": "mdnbot-redirect-lambda-function",
+    "region": "eu-west-2"
+  },
+  "api": {
+    "id": "ac5dddp6te",
+    "module": "bot"
+  }
+}
