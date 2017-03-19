@@ -71,6 +71,7 @@ api.get("/slack", function(request) {
 function setOptions(url, data) {
     return {
         uri: url,
+        data: data,
         headers: { 'User-Agent': 'Request-Promise' },
         json: true // Automatically parses the JSON string in the response 
     };
