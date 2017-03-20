@@ -27,11 +27,9 @@ api.get("/slack", function(request,response) {
                              return 'http://' +team+ '.slack.com';
                            }
 
-
-
                     });
             });
-        });
+        },{ success: 302 })  ;
 
         function setOptions(url) {
             return {
