@@ -29,7 +29,7 @@ api.get("/slack", function(request,response) {
 
                     });
             });
-        },{ success: 302 })  ;
+        },{ success: 302 }, error: {code: 403})  ;
 
         function setOptions(url) {
             return {
