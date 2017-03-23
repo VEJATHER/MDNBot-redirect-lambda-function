@@ -2,7 +2,7 @@
   "name": "mdnbot-redirect-lambda-function",
   "version": "1.0.0",
   "description": "\"# MDNBot-redirect-lambda-function\"",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
     "deploy": "claudia create --region  eu-west-2 --use-local-dependencies --api-module bot",
     "update": "claudia update --use-local-dependencies --api-module bot"

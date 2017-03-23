@@ -8,35 +8,32 @@ api.get("/hello/{name}", function(request) {
     return "Hello World - meet " + name;
 });
 
-api.get("/slack", function(request,response) {
-            var token = request.queryString.code;
-            if (!token) { // access denied
-                return 'https://vejather.github.io/mdn-bot-landing-page';
-            }
-            var AUTH_URL = 'https://slack.com/api/oauth.access?scope=commands+team%3Aread&client_id=' + credentials.client_id + '&client_secret=' + credentials.client_secret + '&code=' + token;
+api.get("/slack", function(request, response) {
+    var token = request.queryString.code;
+    if (!token) { // access denied
+        return 'https://vejather.github.io/mdn-bot-landing-page';
+    }
+    var AUTH_URL = 'https://slack.com/api/oauth.access?scope=commands+team%3Aread&client_id=' + credentials.client_id + '&client_secret=' + credentials.client_secret + '&code=' + token;
 
-            return promise(setOptions(AUTH_URL)).then(function(data) {
-               var TEAM_URL = 'https://slack.com/api/team.info?token=' + data.access_token;
-                //return "MDNBot has been added to your team";
-                return promise(setOptions('https://slack.com/api/team.info?token='+data.access_token)).then(function (data) { 
-                      //return "team info"+JSON.stringify(data);
-                        if(data.error == 'missing_scope') {
-                             return 'MDNBot has been added to your team!';
-                           } else {
-                             var team = data.team.domain;
-                             return 'http://' +team+ '.slack.com';
-                           }
+    return promise(setOptions(AUTH_URL)).then(function(data) {
+        var TEAM_URL = 'https://slack.com/api/team.info?token=' + data.access_token;
+        //return "MDNBot has been added to your team";
+        return promise(setOptions('https://slack.com/api/team.info?token=' + data.access_token)).then(function(data) {
+            var team = data.team.domain;
+            return 'http://' + team + '.slack.com';
+        }).catch(function(err) {
+        	//user canceled authorization
+           return 'https://vejather.github.io/mdn-bot-landing-page';
+        });
+    });
+}, { success: 302, error: { code: 403 } });
 
-                    });
-            });
-        },{ success: 302 }, error: {code: 403})  ;
+function setOptions(url) {
+    return {
+        uri: url,
+        headers: { 'User-Agent': 'Request-Promise' },
+        json: true // Automatically parses the JSON string in the response 
+    };
+}
 
-        function setOptions(url) {
-            return {
-                uri: url,
-                headers: { 'User-Agent': 'Request-Promise' },
-                json: true // Automatically parses the JSON string in the response 
-            };
-        }
-
-        module.exports = api;
+module.exports = api;
